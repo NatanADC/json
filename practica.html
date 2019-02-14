@@ -6,7 +6,30 @@
 	<script type="text/javascript">
 		function loadData()
 		{
-			
+			//crear peticion
+			let xhr = new XMLHttpRequest();
+			xhr.open("GET", " https://natanadc.github.io/json/prueba.json");
+
+			xhr.onreadystatechange = function ()
+			{
+				console.log(this.readyState, this.status, this.statusText);
+			}
+			//procesar peticion
+			xhr.onload = function()
+			{
+				if (this.readyState===4 && this.status === 200)
+				{
+					// cambiar texto
+					// esconder boton
+				}
+				else
+				{
+					// la informacion no llego
+					alert("Error:" + this.status);
+				}
+			}
+
+			//enviar peticon
 		}
 	</script>
 </head>

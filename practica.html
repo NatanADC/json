@@ -1,51 +1,42 @@
 <!DOCTYPE html>
+<meta charset="UTF-8">
 <html>
 <head>
 	<title>JSON and AJAZ</title>
-	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<link rel="stylesheet" type="text/css" href="styles.css">
 	<script type="text/javascript">
 		function loadData()
 		{
-			//crear peticion
+			//crear una peticion
 			let xhr = new XMLHttpRequest();
-
-			xhr.onreadystatechange = function ()
-			{
+			xhr.onreadystatechange = function(){
 				console.log(this.readyState, this.status, this.statusText);
 			}
 
-			xhr.open("GET", " https://natanadc.github.io/json/prueba.json");
+			xhr.open("GET", "https://natanadc.github.io/json/prueba.json");
 
+			//procesar la peticion
+			xhr.onload = function(){
+				if(this.readyState === 4 && this.status === 200){
 
-			//procesar peticion
-			xhr.onload = function()
-			{
-				if (this.readyState===4 && this.status === 200)
-				{
-					// cambiar texto
-					//console.log("this.responseText");
-					let data = JSON parse(this.responseText);
-					//console.log(data);
-					let emptyDiv = document.getElementById("loaded-info")
+					//cambiar texto
+					let data = JSON.parse(this.responseText);
+					let emptyDiv = document.getElementById("loaded-info");
 					let html = '';
-					data.forEach(function(pig)
-				{
-					html += '<p>'
-					html += pig.nombre + '' + pig.apellido
-					html += '</p>'
-				});
+					data.forEach(function(persona){
+						html += '<p>'
+						html += persona.nombre + '' + persona.apellido
+						html += '</p>'
+					});
 
-				emptyDiv.insertAdjacentHTML('beforeend',html)
-					// esconder boton
-				}
-				else
-				{
-					// la informacion no llego
-					alert("Error:" + this.status);
+					emptyDiv.insertAdjacentHTML('beforeend', html)
+					//esconder el boton
+				}else{
+					//la informacion no llego
+					alert("ERROR" + this.status);
 				}
 			}
-
-			//enviar peticon
+			//
 			xhr.send();
 		}
 	</script>

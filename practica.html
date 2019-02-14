@@ -8,18 +8,34 @@
 		{
 			//crear peticion
 			let xhr = new XMLHttpRequest();
-			xhr.open("GET", " https://natanadc.github.io/json/prueba.json");
 
 			xhr.onreadystatechange = function ()
 			{
 				console.log(this.readyState, this.status, this.statusText);
 			}
+
+			xhr.open("GET", " https://natanadc.github.io/json/prueba.json");
+
+
 			//procesar peticion
 			xhr.onload = function()
 			{
 				if (this.readyState===4 && this.status === 200)
 				{
 					// cambiar texto
+					//console.log("this.responseText");
+					let data = JSON parse(this.responseText);
+					//console.log(data);
+					let emptyDiv = document.getElementById("loaded-info")
+					let html = '';
+					data.forEach(function(pig)
+				{
+					html += '<p>'
+					html += pig.nombre + '' + pig.apellido
+					html += '</p>'
+				});
+
+				emptyDiv.insertAdjacentHTML('beforeend',html)
 					// esconder boton
 				}
 				else
@@ -30,13 +46,14 @@
 			}
 
 			//enviar peticon
+			xhr.send();
 		}
 	</script>
 </head>
 <body>
 	<h1>JSON y AJAX</h1>
 	<H3>permitir que ajax modifique el contenido</H3>
-	<button id="btn" type="button" >Mostar info sin recargar pantalla</button>
+	<button id="btn" type="button" onclick="loadData()" >Mostar info sin recargar pantalla</button>
 	<div id="loaded-info"></div>
 </body>
 </html>

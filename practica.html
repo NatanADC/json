@@ -35,10 +35,40 @@
 					//la informacion no llego
 					alert("ERROR" + this.status);
 				}
+			};
+
+			xhr.onerror = function()
+			{
+				// no se logro la peticion
+				alert("la conexion ha fallado")
 			}
-			//
+			//enviar oetivion
 			xhr.send();
 		}
+
+		function postexample(){
+			let xhr = new XMLHttpRequest();
+			xhr.open("POST","hhtp://10.24.43.221:3000/kittens");
+
+			xhr.setRequestHeader("content-type","application/json");
+
+			xhr.onload = function(){};
+
+			xhr.onerror = function(){
+				alert("la conexion a fallado");
+			};
+
+			let name = document.getElementById('name').value;
+			let cuteness = document.getElementById('cuteness').value;
+			let color = document.getElementById('color').value;
+			let owner = document.getElementById('owner').value;
+			let explodes = document.getElementById('explodes').checked;
+
+			let obj = {name, cuteness, color, owner, explodes};
+			xhr.send(obj);
+
+		}
+
 	</script>
 </head>
 <body>
@@ -46,5 +76,25 @@
 	<H3>permitir que ajax modifique el contenido</H3>
 	<button id="btn" type="button" onclick="loadData" >Mostar info sin recargar pantalla</button>
 	<div id="loaded-info"></div>
+	<form action="/my-handling-form-page" method="post">
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" />
+    </div>
+    <div>
+        <label for="cuteness">Cuteness:</label>
+        <input type="text" id="cuteness" />
+    </div>
+		<div>
+			<label for="color">Color:</label>
+			<input type="text" id="color" />
+    </div>
+		<div>
+			<label for="owner">Owner:</label>
+			<input type="text" id="owner" />
+    </div>
+		<label><input type="checkbox" id="explodes" value="first_checkbox"> Explodes</label><br>
+		<button id="btn" type="button" onclick="postexample" >Crear gato</button>
+</form>
 </body>
 </html>

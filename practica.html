@@ -48,7 +48,7 @@
 
 		function postexample(){
 			let xhr = new XMLHttpRequest();
-			xhr.open("POST","hhtp://10.24.43.221:3000/kittens");
+			xhr.open("POST","http://10.24.43.221:3000/kittens");
 
 			xhr.setRequestHeader("content-type","application/json");
 
@@ -65,7 +65,12 @@
 			let explodes = document.getElementById('explodes').checked;
 
 			let obj = {name, cuteness, color, owner, explodes};
-			xhr.send(obj);
+
+			let data = JSON.stringify(obj);
+			console.log(obj);
+			console.log(data);
+
+			xhr.send(data);
 
 		}
 
@@ -94,7 +99,7 @@
 			<input type="text" id="owner" />
     </div>
 		<label><input type="checkbox" id="explodes" value="first_checkbox"> Explodes</label><br>
-		<button id="btn" type="button" onclick="postexample" >Crear gato</button>
+		<button id="btn2" type="button" onclick="postexample()" >Crear gato</button>
 </form>
 </body>
 </html>
